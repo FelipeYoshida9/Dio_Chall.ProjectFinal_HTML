@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    container_name: api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Monta o código local no contêiner para habilitar o hot-reload
+      - .:/app
+    # Sobrescreve o CMD do Dockerfile para adicionar a flag --reload,
+    # ideal para o ambiente de desenvolvimento.
+    working_dir: /app
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
