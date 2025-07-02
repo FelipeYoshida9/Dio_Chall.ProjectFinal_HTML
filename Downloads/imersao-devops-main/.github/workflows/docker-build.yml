@@ -1,0 +1,20 @@
+name: Build Docker image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Definir a variável TAG
+        run: echo "TAG=${{ github.run_id }}" >> $GITHUB_ENV
+
+      - name: Construir a imagem Docker
+        run: docker build . --tag my-image-name:$TAG
